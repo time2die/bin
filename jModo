@@ -1,2 +1,0 @@
-#!/bin/sh
-java -jar ~/java/src/tModo/target/jModo-1.0.jar &
