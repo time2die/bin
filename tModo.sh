@@ -1,2 +1,2 @@
 #!/bin/bash
-java -jar ./tModo.jar &
+java -jar ~/bin/tModo.jar &
