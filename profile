@@ -37,5 +37,10 @@ export SDKMAN_DIR="/home/time2die/.sdkman"
 parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
-#export PS1="\u:\[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\]$ "
-export PS1="\[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\]$ "
+
+get_free_mem() {
+	cat /home/time2die/bin/mem.st
+}
+
+#export PS1="\e[0;31m\$(get_free_mem) \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\]$ "
+export PS1="\e[0;31m\$(get_free_mem)\[\033[33m\]\$(parse_git_branch)\[\033[00m\]$ "
