@@ -2,19 +2,25 @@
 exec scala -savecompiled  "$0" "$@"
 !#
 
-import sys.process._
-
+import java.io._
+import scala.sys.process._
 
 while (true) {
-  val res = "ssh prod free -m" !!
-  val a = res.split("\\r?\\n")
-  val strings = a(1).split(" ").filter(x => !"".equals(x))
-  val freeMem = strings(3)+"mb"
+  try {
+    getDataAndWrite
+  } catch {
+    case x: Any => println(x.getMessage)
+  }
+}
 
-  import java.io._
-  val pw = new PrintWriter(new File("/home/time2die/bin/mem.st" ))
+def getDataAndWrite() {
+  val res = {
+    "ssh prod free -m" !!
+  }
+  val strings = res.split("\\r?\\n")(1).split(" ").filter(x => !"".equals(x))
+  val freeMem = strings(3) + "mb"
+  val pw = new PrintWriter(new File("/home/time2die/bin/mem.st"))
   pw.write(freeMem)
   pw.close
-
   Thread.sleep(1000)
 }
